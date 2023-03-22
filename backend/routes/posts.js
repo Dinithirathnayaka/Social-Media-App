@@ -3,6 +3,7 @@ const {
   createPost,
   getPosts,
   getPost,
+  getTimelinePosts,
   deletePost,
   updatePost,
   likePost,
@@ -23,7 +24,10 @@ router.put("/:id/like", likePost);
 //GET a post
 router.get("/:id", getPost);
 
-//GET all posts (timeline)
-router.get("/timeline/all", getPosts);
+//GET timeline posts
+router.get("/timeline/:userId", getTimelinePosts);
+
+//GET all posts
+router.get("/profile/:username", getPosts);
 
 module.exports = router;

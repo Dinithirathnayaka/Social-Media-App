@@ -1,5 +1,5 @@
 import React from "react";
-// import SearchIcon from "@material-ui/icons/Search";
+import { Link } from "react-router-dom";
 import { Person, Search, Chat, Notifications } from "@material-ui/icons";
 
 export default function Topbar() {
@@ -7,7 +7,10 @@ export default function Topbar() {
     <div>
       <div className="topbarContainer">
         <div className="topbarLeft">
-          <span className="Logo">Dinisocial</span>{" "}
+          <Link to="/" style={{ textDecoration: "none" }}>
+            {" "}
+            <span className="Logo">Dinisocial</span>{" "}
+          </Link>
         </div>
         <div className="topbarCenter">
           <div className="searchbar">

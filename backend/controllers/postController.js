@@ -1,4 +1,5 @@
 const Post = require("../models/postModel");
+const User = require("../models/userModel");
 
 //CREATE post
 const createPost = async (req, res) => {
@@ -67,18 +68,29 @@ const getPost = async (req, res) => {
   }
 };
 
-//GET all posts (timeline)
-const getPosts = async (req, res) => {
-  let postArray = [];
+//GET timeline posts
+const getTimelinePosts = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.body.userId);
+    const currentUser = await User.findById(req.params.userId);
     const userPosts = await Post.find({ userId: currentUser._id });
-    const freindPosts = await Promise.all(
+    const friendPosts = await Promise.all(
       currentUser.followings.map((friendId) => {
         return Post.find({ userId: friendId });
       })
     );
-    res.json(userPosts.concat(...freindPosts));
+    res.status(200).json(userPosts.concat(...friendPosts));
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+//GET all posts
+
+const getPosts = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    const posts = await Post.find({ userId: user._id });
+    res.status(200).json(posts);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -91,4 +103,5 @@ module.exports = {
   deletePost,
   updatePost,
   likePost,
+  getTimelinePosts,
 };
