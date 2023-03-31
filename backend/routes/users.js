@@ -9,7 +9,7 @@ const {
 } = require("../controllers/userController");
 
 //GET a user
-router.get("/:id", getUser);
+router.get("/", getUser);
 
 //UPDATE a user
 router.put("/:id", updateUser);
